@@ -1,0 +1,63 @@
+@startuml Catalogo
+title Diagrama de Casos de Uso - Catálogo Demonstrativo com Partições (Vertical UML)
+
+left to right direction
+
+actor "Usuário" as Usuario #LightSkyBlue
+actor "Desenvolvedor" as Dev #LightGreen
+Dev -|> Usuario
+
+' Bloco: Catálogo
+rectangle "Catálogo de Produtos" {
+  usecase VC as "Visualizar Catálogo"
+  usecase BP as "Buscar Produto"
+  usecase FC as "Filtrar por Categoria"
+  usecase FT as "Filtrar por Tipo"
+}
+
+' Bloco: Detalhes do Produto
+rectangle "Detalhes do Produto" {
+  usecase VDP as "Visualizar Detalhes do Produto"
+  usecase VV as "Ver Versões"
+  usecase VA as "Ver Avaliações"
+  usecase DOC as "Ver Documentação"
+  usecase CP as "Compartilhar Produto"
+  usecase ASS as "Indicar Interesse em Assinatura"
+}
+
+' Bloco: Ações do Desenvolvedor
+rectangle "Funções do Desenvolvedor" {
+  usecase CAD as "Cadastrar Produto"
+  usecase ATU as "Atualizar Produto"
+  usecase VER as "Cadastrar Nova Versão"
+  usecase VPUB as "Visualizar Produto Publicado"
+}
+
+' Conexões do Usuário
+Usuario --> VC
+Usuario --> BP
+Usuario --> FC
+Usuario --> FT
+Usuario --> VDP
+
+' include: navegação
+BP .> VC : <<include>>
+FC .> VC : <<include>>
+FT .> VC : <<include>>
+
+' include: detalhes internos
+VV .> VDP : <<include>>
+VA .> VDP : <<include>>
+DOC .> VDP : <<include>>
+
+' extend: ações opcionais
+CP .> VDP : <<extend>>
+ASS .> VDP : <<extend>>
+
+' Conexões do Desenvolvedor
+Dev --> CAD
+Dev --> ATU
+Dev --> VER
+Dev --> VPUB
+
+@enduml

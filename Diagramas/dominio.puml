@@ -1,0 +1,56 @@
+@startuml Catalogo
+title Diagrama de Domínio - Catálogo de Produtos (Marketplace)
+
+class Usuário {
+  +nome
+  +email
+}
+
+class Desenvolvedor {
+  +cnpj
+}
+Desenvolvedor -|> Usuário
+
+class Produto {
+  +nome
+  +descrição
+  +tipo: TipoProduto
+}
+
+class Categoria {
+  +nome
+}
+
+class TipoProduto {
+  <<enum>>
+  Software
+  API
+}
+
+class Versão {
+  +número
+  +dataLançamento
+  +notas
+}
+
+class Avaliação {
+  +nota
+  +comentário
+}
+
+class Documentação {
+  +link
+  +conteúdo
+}
+
+' Relacionamentos
+Desenvolvedor "1" --> "0..*" Produto : cadastra >
+Produto "1" --> "1" Categoria : pertence a >
+Produto "1" --> "1" TipoProduto : é do tipo >
+Produto "1" --> "0..*" Versão : possui >
+Produto "1" --> "0..*" Avaliação : recebe >
+Produto "1" --> "0..1" Documentação : possui >
+
+Usuário "1" --> "0..*" Avaliação : realiza >
+
+@enduml

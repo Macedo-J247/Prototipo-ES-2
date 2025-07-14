@@ -1,0 +1,67 @@
+@startuml Catalogo
+title Diagrama de Classes - Catálogo Marketplace
+
+class Usuario {
+  +int id
+  +String nome
+  +String email
+  +String senha
+  +String tipo  ' Pode ser "cliente" ou "desenvolvedor"
+}
+
+class Desenvolvedor {
+  +String cnpj
+  +String site
+}
+
+Desenvolvedor -|> Usuario
+
+class Produto {
+  +int id
+  +String nome
+  +String descricao
+  +Date dataCadastro
+  +TipoProduto tipoProduto
+}
+
+class Categoria {
+  +int id
+  +String nome
+}
+
+class Versao {
+  +int id
+  +String numero
+  +Date dataLancamento
+  +String notas
+}
+
+class Avaliacao {
+  +int id
+  +int nota
+  +String comentario
+  +Date data
+}
+
+class Documentacao {
+  +int id
+  +String link
+  +String conteudo
+}
+
+enum TipoProduto {
+  Software
+  API
+}
+
+' Relacionamentos
+
+Desenvolvedor "1" -- "0..*" Produto : cadastra >
+Produto "1" -- "1" Categoria : pertence a >
+Produto "1" -- "0..*" Versao : possui >
+Produto "1" -- "0..*" Avaliacao : recebe >
+Produto "1" -- "0..1" Documentacao : possui >
+
+Usuario "1" -- "0..*" Avaliacao : realiza >
+
+@enduml

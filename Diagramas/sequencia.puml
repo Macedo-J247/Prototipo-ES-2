@@ -1,0 +1,26 @@
+@startuml Catalogo
+title Diagrama de Sequência - Visualizar Detalhes do Produto
+
+actor Usuário
+participant "Interface" as Interface
+participant "Catálogo" as Catalogo
+participant "Produto" as Produto
+participant "Versão" as Versao
+participant "Avaliação" as Avaliacao
+
+Usuário -> Interface : clicar em "Ver Detalhes"
+Interface -> Catalogo : solicitarDetalhes(produtoId)
+
+Catalogo -> Produto : buscarProduto(produtoId)
+Produto --> Catalogo : dados do produto
+
+Catalogo -> Versao : buscarVersões(produtoId)
+Versao --> Catalogo : lista de versões
+
+Catalogo -> Avaliacao : buscarAvaliações(produtoId)
+Avaliacao --> Catalogo : lista de avaliações
+
+Catalogo --> Interface : dados completos do produto
+Interface --> Usuário : exibir informações
+
+@enduml
